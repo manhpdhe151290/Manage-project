@@ -14,8 +14,8 @@ const Login = () => {
         'GET',
         `/login?username=${email}&password=${password}`
       )
-      console.log(result)
       if (result === 'success') {
+        localStorage.setItem('login', email)
         toast('Login successfully!', {
           hideProgressBar: true,
           autoClose: 2000,
@@ -87,7 +87,7 @@ const Login = () => {
             }}
             htmlFor='email'
           >
-            Email:
+            Username:
           </label>
           <input
             id='email'
@@ -158,7 +158,7 @@ const Login = () => {
             Log in
           </button>
         </form>
-        <p style={{ textAlign: 'center' }}>
+        <p style={{ textAlign: 'center', marginTop: '20px' }}>
           <span>Already have an account ?</span>
           <a href='#'>Login</a>
         </p>

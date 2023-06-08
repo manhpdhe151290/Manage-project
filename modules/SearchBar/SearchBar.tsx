@@ -1,3 +1,4 @@
+import useDebounce from '@/hook/useDebounce'
 import { callApi } from '@/utils/api'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -13,6 +14,7 @@ interface SearchProps {
 }
 function SearchBox({ setSearchResults1, setTotalRecord1 }: SearchProps) {
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const inputValue = useDebounce<string>(searchTerm, 1000)
 
   const handleSearch = async (): Promise<void> => {
     try {
@@ -28,10 +30,10 @@ function SearchBox({ setSearchResults1, setTotalRecord1 }: SearchProps) {
   }
 
   useEffect(() => {
-    if (searchTerm !== '') {
+    if (inputValue) {
       handleSearch()
     }
-  }, [searchTerm])
+  }, [inputValue])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()

@@ -3,7 +3,10 @@ import SearchBox from '@/modules/SearchBar/SearchBar'
 import Table from '@/modules/Table/Table'
 import { Pagination } from '@/pagination'
 import { callApi } from '@/utils/api'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { AiFillCaretDown, AiOutlineMenuFold } from 'react-icons/ai'
+import { toast } from 'react-toastify'
 interface Company {
   companyCode: string
   companyName: string
@@ -11,8 +14,11 @@ interface Company {
 }
 function HomePage() {
   const [dataCompany, setDataCompany] = useState<Company[]>()
+  const [hover, setHover] = useState(false)
+  const router = useRouter()
   const [totalRecord, setTotalRecord] = useState<number>()
   const [page, setPage] = useState<number>(1)
+  const [toggle, setToggle] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,6 +90,7 @@ function HomePage() {
             }}
           />
         )}
+
         <Pagination
           total={totalRecord || 0}
           onChange={(number) => setPage(number)}
@@ -97,6 +104,94 @@ function HomePage() {
           }}
         />
       </div>
+      {localStorage.getItem('login') != undefined && (
+        <>
+          <div style={{ margin: 15 }}>
+            <div
+              style={{ width: '100%', display: 'flex', alignItems: 'center' }}
+            >
+              Hi, {localStorage.getItem('login')}
+              <span style={{ position: 'relative' }}>
+                <AiFillCaretDown
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setToggle(!toggle)}
+                />
+                {toggle && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      width: '120px',
+                      left: '-60px',
+                      top: '20px',
+                      backgroundColor: '#333',
+                      minHeight: '100%',
+                      cursor: 'pointer',
+                      padding: 5,
+                      transition: 'linear 1s',
+                    }}
+                  >
+                    <ul>
+                      <li
+                        style={{
+                          minWidth: '100%',
+                          color: '#fff',
+                        }}
+                        onMouseEnter={() => {
+                          setHover(true)
+                        }}
+                        onMouseLeave={() => {
+                          setHover(false)
+                        }}
+                      >
+                        Trang Cá Nhân
+                      </li>
+                      <li
+                        style={{
+                          minWidth: '100%',
+                          color: '#fff',
+                        }}
+                        onMouseEnter={() => {
+                          setHover(true)
+                        }}
+                        onMouseLeave={() => {
+                          setHover(false)
+                        }}
+                      >
+                        Cài Đặt
+                      </li>
+                      <li
+                        style={{
+                          minWidth: '100%',
+                          color: '#fff',
+                          background: hover ? 'red' : '#333',
+                        }}
+                        onMouseEnter={() => {
+                          setHover(true)
+                        }}
+                        onMouseLeave={() => {
+                          setHover(false)
+                        }}
+                        onClick={() => {
+                          localStorage.removeItem('login')
+                          toast('Logout successfully!', {
+                            hideProgressBar: true,
+                            autoClose: 2000,
+                            type: 'success',
+                            position: 'top-center',
+                          })
+                          router.push('/login')
+                        }}
+                      >
+                        Đăng xuất
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </span>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
