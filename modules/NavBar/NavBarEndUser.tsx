@@ -1,7 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
 
-const Navbar: React.FC = () => {
+interface NavBarProps {
+  setRole: (result: String) => void
+  activeTab: String
+}
+function Navbar({ setRole, activeTab }: NavBarProps) {
   const styles = {
     nav: {
       display: 'flex',
@@ -23,14 +27,6 @@ const Navbar: React.FC = () => {
       display: 'flex',
       justifyContent: 'space-between',
       width: '30%',
-    },
-    link: {
-      display: 'block',
-      padding: '1rem',
-      transition: 'all 0.3s ease-in-out',
-      textDecoration: 'none',
-      color: '#000',
-      fontWeight: 600,
     },
   }
 
@@ -56,15 +52,72 @@ const Navbar: React.FC = () => {
           flexDirection: 'column',
         }}
       >
-        <Link href='/'>
-          <div style={styles.link}>Danh sách công ty</div>
-        </Link>
-        <Link href='/about'>
-          <div style={styles.link}>Thêm Công ty</div>
-        </Link>
-        <Link href='/contact'>
-          <div style={styles.link}>Lịch sử</div>
-        </Link>
+        <div
+          onClick={() => {
+            setRole('manage')
+          }}
+          style={{
+            cursor: 'pointer',
+            background: activeTab === 'manage' ? '#333' : '',
+          }}
+        >
+          <div
+            style={{
+              display: 'block',
+              padding: '1rem',
+              transition: 'all 0.3s ease-in-out',
+              textDecoration: 'none',
+              fontWeight: 600,
+              color: activeTab === 'manage' ? 'white' : '#000',
+            }}
+          >
+            Danh sách công ty
+          </div>
+        </div>
+        <div
+          onClick={() => {
+            setRole('company')
+          }}
+          style={{
+            background: activeTab === 'company' ? '#333' : '',
+            cursor: 'pointer',
+          }}
+        >
+          <div
+            style={{
+              display: 'block',
+              padding: '1rem',
+              transition: 'all 0.3s ease-in-out',
+              textDecoration: 'none',
+              fontWeight: 600,
+              color: activeTab === 'company' ? 'white' : '#000',
+            }}
+          >
+            Thêm Công ty
+          </div>
+        </div>
+        <div
+          onClick={() => {
+            setRole('history')
+          }}
+          style={{
+            background: activeTab === 'history' ? '#333' : '',
+            cursor: 'pointer',
+          }}
+        >
+          <div
+            style={{
+              display: 'block',
+              padding: '1rem',
+              transition: 'all 0.3s ease-in-out',
+              textDecoration: 'none',
+              fontWeight: 600,
+              color: activeTab === 'history' ? 'white' : '#000',
+            }}
+          >
+            Thêm hóa đơn
+          </div>
+        </div>
       </div>
     </nav>
   )

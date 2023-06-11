@@ -1,28 +1,18 @@
 import dotenv from 'dotenv'
-import { NextPage } from 'next'
 import { AppProps } from 'next/app'
-import { ReactElement, ReactNode, useEffect } from 'react'
-import { ToastContainer } from 'react-toastify'
+import { useEffect } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.css'
+import { ToastContainer } from 'react-toastify'
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode
-}
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
-}
-
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     // Load environment variables
     dotenv.config()
   }, [])
-  const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <>
-      {getLayout(<Component {...pageProps} />)}
+      <Component {...pageProps} />
       <ToastContainer />
     </>
   )
