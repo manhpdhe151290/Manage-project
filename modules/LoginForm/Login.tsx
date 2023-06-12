@@ -22,7 +22,7 @@ const Login = () => {
           type: 'success',
           position: 'top-center',
         })
-        router.push('/home')
+        router.push('/company')
       } else {
         toast('Wrong password!', {
           hideProgressBar: true,

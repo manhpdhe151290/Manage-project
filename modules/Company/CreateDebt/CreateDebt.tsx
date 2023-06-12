@@ -1,8 +1,35 @@
-import React from 'react'
-
+import { DebtType } from '@/type/company.type'
+import { callApi } from '@/utils/api'
+import React, { useState } from 'react'
+import { toast } from 'react-toastify'
+const initialState: DebtType = {
+  companyCode: '',
+  totalMoney: 0,
+  amountPaid: 0,
+  amountOwed: 0,
+}
 function CreateDebt() {
+  const [formData, setFormData] = useState<DebtType>(initialState)
+  const handleCreate = async (): Promise<void> => {
+    try {
+      await callApi('POST', `/add-debt`, formData)
+      toast('Create Debt successfully!', {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: 'success',
+        position: 'top-center',
+      })
+      setFormData(initialState)
+    } catch (error) {
+      toast.error('Lỗi khi tạo hóa đơn')
+    }
+  }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault()
+    handleCreate()
+  }
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h1
         style={{
           fontSize: '30px',
@@ -31,6 +58,13 @@ function CreateDebt() {
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
           placeholder='CompanyCode'
           required
+          value={formData.companyCode}
+          onChange={(event) =>
+            setFormData((prev) => ({
+              ...prev,
+              companyCode: event.target.value,
+            }))
+          }
         />
       </div>
       <div className='mb-6'>
@@ -41,11 +75,18 @@ function CreateDebt() {
           TotalMoney
         </label>
         <input
-          type='text'
+          type='number'
           id='title'
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
           placeholder='totalMoney'
           required
+          value={formData.totalMoney}
+          onChange={(event) =>
+            setFormData((prev) => ({
+              ...prev,
+              totalMoney: Number(event.target.value),
+            }))
+          }
         />
       </div>
       <div className='mb-6'>
@@ -56,11 +97,18 @@ function CreateDebt() {
           AmountPaid
         </label>
         <input
-          type='text'
+          type='number'
           id='title'
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
           placeholder='amountPaid'
           required
+          value={formData.amountPaid}
+          onChange={(event) =>
+            setFormData((prev) => ({
+              ...prev,
+              amountPaid: Number(event.target.value),
+            }))
+          }
         />
       </div>
       <div className='mb-6'>
@@ -71,11 +119,18 @@ function CreateDebt() {
           AmountOwed
         </label>
         <input
-          type='text'
+          type='number'
           id='title'
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
           placeholder='amountOwed'
           required
+          value={formData.amountOwed}
+          onChange={(event) =>
+            setFormData((prev) => ({
+              ...prev,
+              amountOwed: Number(event.target.value),
+            }))
+          }
         />
       </div>
       <div>

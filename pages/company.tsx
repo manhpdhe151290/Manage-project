@@ -5,7 +5,7 @@ import Table from '@/modules/Table/Table'
 import { Pagination } from '@/pagination'
 import { callApi } from '@/utils/api'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { default as Company, default as CreateCompany } from './add-company'
 import { AiFillCaretDown } from 'react-icons/ai'
 import { toast } from 'react-toastify'
@@ -23,22 +23,21 @@ function HomePage() {
   const [toggle, setToggle] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<String>('manage')
   const [user, setUser] = useState<String>('')
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await callApi('GET', `/get-company?page=${page}`)
-        setDataCompany(result.companyDTOList)
-        setTotalRecord(result.total)
-      } catch (error) {
-        console.error(error)
-      }
+  const handleCreateCompanySuccess = useCallback(async () => {
+    try {
+      const result = await callApi('GET', `/get-company?page=${page}`)
+      setDataCompany(result.companyDTOList)
+      setTotalRecord(result.total)
+    } catch (error) {
+      console.error(error)
     }
-    fetchData()
+  }, [page])
+  useEffect(() => {
+    handleCreateCompanySuccess()
   }, [page])
   useEffect(() => {
     setUser(sessionStorage.getItem('login') || '')
   }, [])
-
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <div style={{ width: '30%' }}>
@@ -85,17 +84,20 @@ function HomePage() {
                   textAlign: 'center',
                   borderTop: '1px solid #f0f4f8',
                   padding: '8px',
+                  cursor: 'pointer',
                 }}
                 cellStyle={{
                   textAlign: 'left',
                   backgroundColor: 'white',
                   padding: '8px',
+                  cursor: 'pointer',
                 }}
                 headerCellThStyle={{
                   color: '#364d67',
                   fontWeight: '600',
                   backgroundColor: '#f1f7fd',
                   padding: 10,
+                  cursor: 'pointer',
                 }}
               />
             )}
@@ -104,7 +106,7 @@ function HomePage() {
               total={totalRecord || 0}
               onChange={(number) => setPage(number)}
               page={page}
-              pageSize={6}
+              pageSize={10}
               paginationStyle={{
                 marginTop: 20,
                 marginBottom: 20,
@@ -114,7 +116,12 @@ function HomePage() {
             />
           </div>
         )}
-        {activeTab === 'company' && <CreateCompany />}
+        {activeTab === 'company' && (
+          <CreateCompany
+            setRole={setActiveTab}
+            onCreateCompanySuccess={handleCreateCompanySuccess}
+          />
+        )}
         {activeTab === 'history' && <CreateDebt />}
       </div>
 

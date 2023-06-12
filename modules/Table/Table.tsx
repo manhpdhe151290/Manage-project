@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { CSSProperties } from 'react'
 interface Company {
   companyCode: string
@@ -21,6 +22,7 @@ const Table = ({
   cellStyle,
   headerCellThStyle,
 }: TableProps) => {
+  const router = useRouter()
   return (
     <table style={style}>
       <thead>
@@ -35,7 +37,12 @@ const Table = ({
       <tbody>
         {data.map((row, index) => (
           <tr key={index} style={headerCellStyle}>
-            <td style={cellStyle}>{row.companyCode}</td>
+            <td
+              style={cellStyle}
+              onClick={() => router.push(`/company/${row.companyCode}`)}
+            >
+              {row.companyCode}
+            </td>
             <td style={cellStyle}>{row.companyName}</td>
             <td style={cellStyle}>{row.representativeName}</td>
           </tr>

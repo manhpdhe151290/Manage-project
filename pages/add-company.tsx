@@ -1,5 +1,6 @@
 import { CompanyType } from '@/type/company.type'
 import { callApi } from '@/utils/api'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -10,21 +11,26 @@ const initialState: CompanyType = {
   gmail: '',
   numberPhone: '',
 }
-
-function CreateCompany() {
+interface AddCompanyProps {
+  setRole: (result: String) => void
+  onCreateCompanySuccess: () => void
+}
+function CreateCompany({ setRole, onCreateCompanySuccess }: AddCompanyProps) {
+  const router = useRouter()
   const [formData, setFormData] = useState<CompanyType>(initialState)
   const handleCreate = async (): Promise<void> => {
     try {
-      const result = await callApi('POST', `/add-company`, formData)
+      await callApi('POST', `/add-company`, formData)
       toast('Create successfully!', {
         hideProgressBar: true,
         autoClose: 2000,
         type: 'success',
         position: 'top-center',
       })
-      console.log(result)
+      setRole('manage')
+      onCreateCompanySuccess()
     } catch (error) {
-      console.error(error)
+      toast.error('Lỗi khi tạo công ty')
     }
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
