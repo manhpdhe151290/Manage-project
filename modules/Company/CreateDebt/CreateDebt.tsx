@@ -2,8 +2,22 @@ import React from 'react'
 
 function CreateDebt() {
   return (
-    <form className='p-5'>
-      <h1 className='text-center uppercase'>Create Debt</h1>
+    <form>
+      <h1
+        style={{
+          fontSize: '30px',
+          letterSpacing: -'1px',
+          textTransform: 'uppercase',
+          textShadow: '2px 2px 0px rgba(0,0,0,0.1)',
+          color: '#fff',
+          backgroundColor: '#333',
+          padding: '10px',
+          margin: '20px 0',
+          textAlign: 'center',
+        }}
+      >
+        Create Debt
+      </h1>
       <div className='mb-6'>
         <label
           htmlFor='title'
@@ -24,7 +38,7 @@ function CreateDebt() {
           htmlFor='title'
           className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
         >
-          totalMoney
+          TotalMoney
         </label>
         <input
           type='text'
@@ -39,7 +53,7 @@ function CreateDebt() {
           htmlFor='title'
           className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
         >
-          amountPaid
+          AmountPaid
         </label>
         <input
           type='text'
@@ -54,7 +68,7 @@ function CreateDebt() {
           htmlFor='title'
           className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
         >
-          amountOwed
+          AmountOwed
         </label>
         <input
           type='text'

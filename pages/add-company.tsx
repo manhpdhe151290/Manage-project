@@ -32,7 +32,22 @@ function CreateCompany() {
     handleCreate()
   }
   return (
-    <form onSubmit={handleSubmit} className='p-5'>
+    <form onSubmit={handleSubmit}>
+      <h1
+        style={{
+          fontSize: '30px',
+          letterSpacing: -'1px',
+          textTransform: 'uppercase',
+          textShadow: '2px 2px 0px rgba(0,0,0,0.1)',
+          color: '#fff',
+          backgroundColor: '#333',
+          padding: '10px',
+          margin: '20px 0',
+          textAlign: 'center',
+        }}
+      >
+        Create Company
+      </h1>
       <div className='mb-6'>
         <label
           htmlFor='title'

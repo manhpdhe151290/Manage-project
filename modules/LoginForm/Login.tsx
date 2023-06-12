@@ -15,7 +15,7 @@ const Login = () => {
         `/login?username=${email}&password=${password}`
       )
       if (result === 'success') {
-        localStorage.setItem('login', email)
+        sessionStorage.setItem('login', email)
         toast('Login successfully!', {
           hideProgressBar: true,
           autoClose: 2000,

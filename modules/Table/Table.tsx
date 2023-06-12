@@ -34,13 +34,11 @@ const Table = ({
       </thead>
       <tbody>
         {data.map((row, index) => (
-          <>
-            <tr key={index} style={headerCellStyle}>
-              <td style={cellStyle}>{row.companyCode}</td>
-              <td style={cellStyle}>{row.companyName}</td>
-              <td style={cellStyle}>{row.representativeName}</td>
-            </tr>
-          </>
+          <tr key={index} style={headerCellStyle}>
+            <td style={cellStyle}>{row.companyCode}</td>
+            <td style={cellStyle}>{row.companyName}</td>
+            <td style={cellStyle}>{row.representativeName}</td>
+          </tr>
         ))}
       </tbody>
     </table>

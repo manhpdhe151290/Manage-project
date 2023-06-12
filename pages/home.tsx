@@ -7,6 +7,8 @@ import { callApi } from '@/utils/api'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { default as Company, default as CreateCompany } from './add-company'
+import { AiFillCaretDown } from 'react-icons/ai'
+import { toast } from 'react-toastify'
 interface Company {
   companyCode: string
   companyName: string
@@ -20,6 +22,7 @@ function HomePage() {
   const [page, setPage] = useState<number>(1)
   const [toggle, setToggle] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<String>('manage')
+  const [user, setUser] = useState<String>('')
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,6 +35,10 @@ function HomePage() {
     }
     fetchData()
   }, [page])
+  useEffect(() => {
+    setUser(sessionStorage.getItem('login') || '')
+  }, [])
+
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <div style={{ width: '30%' }}>
@@ -75,7 +82,7 @@ function HomePage() {
                   backgroundColor: '#f2f2f2',
                 }}
                 headerCellStyle={{
-                  textAlign: 'left',
+                  textAlign: 'center',
                   borderTop: '1px solid #f0f4f8',
                   padding: '8px',
                 }}
@@ -111,13 +118,13 @@ function HomePage() {
         {activeTab === 'history' && <CreateDebt />}
       </div>
 
-      {/* {localStorage.getItem('login') != undefined && (
+      {user && (
         <>
           <div style={{ margin: 15 }}>
             <div
               style={{ width: '100%', display: 'flex', alignItems: 'center' }}
             >
-              Hi, {localStorage.getItem('login')}
+              Hi, {user}
               <span style={{ position: 'relative' }}>
                 <AiFillCaretDown
                   style={{ cursor: 'pointer' }}
@@ -179,7 +186,7 @@ function HomePage() {
                           setHover(false)
                         }}
                         onClick={() => {
-                          localStorage.removeItem('login')
+                          sessionStorage.removeItem('login')
                           toast('Logout successfully!', {
                             hideProgressBar: true,
                             autoClose: 2000,
@@ -198,7 +205,7 @@ function HomePage() {
             </div>
           </div>
         </>
-      )} */}
+      )}
     </div>
   )
 }
