@@ -111,6 +111,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-table@^7.7.14":
+  "integrity" "sha512-TYrv7onCiakaG1uAu/UpQ9FojNEt/4/ht87EgJQaEGFoWV606ZLWUZAcUHzMxgc3v1mywP1cDyz3qB4ho3hWOw=="
+  "resolved" "https://registry.npmjs.org/@types/react-table/-/react-table-7.7.14.tgz"
+  "version" "7.7.14"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@18.2.8":
   "integrity" "sha512-lTyWUNrd8ntVkqycEEplasWy2OxNlShj3zqS0LuB1ENUGis5HodmhM7DtCoUGbxj3VW/WsGA0DUhpG6XrM7gPA=="
   "resolved" "https://registry.npmjs.org/@types/react/-/react-18.2.8.tgz"

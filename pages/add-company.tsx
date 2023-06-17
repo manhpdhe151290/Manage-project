@@ -52,7 +52,7 @@ function CreateCompany({ setRole, onCreateCompanySuccess }: AddCompanyProps) {
           textAlign: 'center',
         }}
       >
-        Create Company
+        Tạo mới công ty
       </h1>
       <div className='mb-6'>
         <label

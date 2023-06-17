@@ -43,7 +43,7 @@ function CreateDebt() {
           textAlign: 'center',
         }}
       >
-        Create Debt
+        Tạo mới hóa đơn
       </h1>
       <div className='mb-6'>
         <label

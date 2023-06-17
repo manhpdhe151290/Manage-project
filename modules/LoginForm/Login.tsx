@@ -67,7 +67,7 @@ const Login = () => {
             marginBottom: '35px',
           }}
         >
-          Sign in
+          Đăng nhập
         </h1>
         <form
           style={{
@@ -87,7 +87,7 @@ const Login = () => {
             }}
             htmlFor='email'
           >
-            Username:
+            Tên tài khoản:
           </label>
           <input
             id='email'
@@ -118,7 +118,7 @@ const Login = () => {
             }}
             htmlFor='password'
           >
-            Password:
+            Mật khẩu:
           </label>
           <input
             required
@@ -155,12 +155,12 @@ const Login = () => {
             }}
             type='submit'
           >
-            Log in
+            Đăng nhập
           </button>
         </form>
         <p style={{ textAlign: 'center', marginTop: '20px' }}>
-          <span>Already have an account ?</span>
-          <a href='#'>Login</a>
+          <span>Đã có tài khoản ?</span>
+          <a href='#'>Đăng nhập</a>
         </p>
       </div>
     </div>
