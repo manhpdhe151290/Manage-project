@@ -1,101 +1,36 @@
-import React from 'react'
+import { callApi } from '@/utils/api'
+import { useRouter } from 'next/router'
+import React, { useState, useEffect, useCallback } from 'react'
 
 interface Data {
   totalMoney: number
   amountPaid: number
   amountOwed: number
-  date: string
-  lastUpdateTime: string
+  month: string
+  lastUpdate: string
 }
 
-const yourData: Data[] = [
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2022-07-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2022-08-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2022-09-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2022-10-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2022-11-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2022-12-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2023-01-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2023-02-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2023-03-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2023-04-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2023-05-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-  {
-    totalMoney: 2,
-    amountPaid: 2,
-    amountOwed: 2,
-    date: '2023-06-12T20:47:40',
-    lastUpdateTime: '2022-07-12T20:47:40',
-  },
-]
-
 function History() {
+  const router = useRouter()
+  const id = router?.query?.id?.toString()
+  const [dataHistory, setDataHistory] = useState<Data[]>()
+  console.log(id)
+  const handleCreateCompanySuccess = useCallback(async () => {
+    if (!!id) {
+      try {
+        const result = await callApi(
+          'GET',
+          `/get-debt-history?companyCode=${id}`
+        )
+        setDataHistory(result)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }, [])
+  useEffect(() => {
+    handleCreateCompanySuccess()
+  }, [])
   return (
     <div>
       <h1
@@ -125,11 +60,11 @@ function History() {
                 borderBottom: '1px solid #ddd',
               }}
             >
-              Date
+              Thời gian
             </th>
-            {yourData.map(({ date }) => (
+            {dataHistory?.map(({ month }) => (
               <th
-                key={date}
+                key={month}
                 style={{
                   backgroundColor: '#f2f2f2',
                   color: 'black',
@@ -138,7 +73,7 @@ function History() {
                   borderBottom: '1px solid #ddd',
                 }}
               >
-                {date}
+                {month}
               </th>
             ))}
           </tr>
@@ -152,9 +87,9 @@ function History() {
                 borderBottom: '1px solid #ddd',
               }}
             >
-              Total Money
+              Tổng số tiền
             </td>
-            {yourData.map(({ totalMoney }) => (
+            {dataHistory?.map(({ totalMoney }) => (
               <td
                 key={totalMoney}
                 style={{
@@ -175,9 +110,9 @@ function History() {
                 borderBottom: '1px solid #ddd',
               }}
             >
-              Amount Paid
+              Số tiền đã trả
             </td>
-            {yourData.map(({ amountPaid }) => (
+            {dataHistory?.map(({ amountPaid }) => (
               <td
                 key={amountPaid}
                 style={{
@@ -198,9 +133,9 @@ function History() {
                 borderBottom: '1px solid #ddd',
               }}
             >
-              Amount Owed
+              Số tiền nợ
             </td>
-            {yourData.map(({ amountOwed }) => (
+            {dataHistory?.map(({ amountOwed }) => (
               <td
                 key={amountOwed}
                 style={{
@@ -221,18 +156,18 @@ function History() {
                 borderBottom: '1px solid #ddd',
               }}
             >
-              LastTimeUpdate
+              Cập nhật cuối cùng
             </td>
-            {yourData.map(({ lastUpdateTime }) => (
+            {dataHistory?.map(({ lastUpdate }) => (
               <td
-                key={lastUpdateTime}
+                key={lastUpdate}
                 style={{
                   textAlign: 'left',
                   padding: '8px',
                   borderBottom: '1px solid #ddd',
                 }}
               >
-                {lastUpdateTime}
+                {lastUpdate}
               </td>
             ))}
           </tr>

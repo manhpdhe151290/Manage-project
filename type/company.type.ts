@@ -7,9 +7,9 @@ export interface CompanyType {
   }
 export interface DebtType {
   companyCode : string
-  totalMoney : number
-  amountPaid : number
-  amountOwed : number
+  totalMoney : string
+  amountPaid : string
+  amountOwed : string
 }
 export interface CompanyDetailType {
   companyCode: string

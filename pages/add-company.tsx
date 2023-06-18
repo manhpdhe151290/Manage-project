@@ -59,13 +59,13 @@ function CreateCompany({ setRole, onCreateCompanySuccess }: AddCompanyProps) {
           htmlFor='title'
           className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
         >
-          CompanyCode
+          Mã công ty
         </label>
         <input
           type='text'
           id='title'
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
-          placeholder='CompanyCode'
+          placeholder='Tạo mới công ty'
           required
           value={formData.companyCode}
           onChange={(event) =>
@@ -81,13 +81,13 @@ function CreateCompany({ setRole, onCreateCompanySuccess }: AddCompanyProps) {
           htmlFor='title'
           className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
         >
-          NameCompany
+          Tên công ty
         </label>
         <input
           type='text'
           id='title'
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
-          placeholder='NameCompany'
+          placeholder='Tên công ty'
           required
           value={formData.nameCompany}
           onChange={(event) =>
@@ -103,13 +103,13 @@ function CreateCompany({ setRole, onCreateCompanySuccess }: AddCompanyProps) {
           htmlFor='title'
           className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
         >
-          RepresentativeName
+          Tên người đại diện
         </label>
         <input
           type='text'
           id='title'
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
-          placeholder='RepresentativeName'
+          placeholder='Tên người đại diện'
           required
           value={formData.representativeName}
           onChange={(event) =>
@@ -147,13 +147,13 @@ function CreateCompany({ setRole, onCreateCompanySuccess }: AddCompanyProps) {
           htmlFor='title'
           className='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300'
         >
-          NumberPhone
+          Số điện thoại
         </label>
         <input
           type='text'
           id='title'
           className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500'
-          placeholder='NumberPhone'
+          placeholder=' Số điện thoại'
           required
           value={formData.numberPhone}
           onChange={(event) =>
@@ -171,15 +171,20 @@ function CreateCompany({ setRole, onCreateCompanySuccess }: AddCompanyProps) {
           type='submit'
         >
           <span className='relative rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900'>
-            Publish Company
+            Tạo công ty
           </span>
         </button>
         <button
           type='reset'
           className='group relative mb-2 mr-2 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 p-0.5 text-sm font-medium text-gray-900 focus:outline-none focus:ring-4 focus:ring-red-100 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 dark:focus:ring-red-400'
         >
-          <span className='relative rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900'>
-            Cancel
+          <span
+            onClick={() => {
+              setFormData(initialState)
+            }}
+            className='relative rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900'
+          >
+            Hủy bỏ
           </span>
         </button>
       </div>
