@@ -23,6 +23,24 @@ function HomePage() {
   const [toggle, setToggle] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<String>('manage')
   const [user, setUser] = useState<String>('')
+  const handleDeleteCompany = async (companyCode: string) => {
+    // Hỏi người dùng xác nhận xóa
+    const confirmed = window.confirm('Bạn có chắc chắn muốn xóa?')
+
+    if (confirmed) {
+      try {
+        await callApi('DELETE', `/delete-company?companyCode=${companyCode}`)
+        toast('Delete company successfully!', {
+          hideProgressBar: true,
+          autoClose: 2000,
+          type: 'success',
+          position: 'top-center',
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
   const handleCreateCompanySuccess = useCallback(async () => {
     try {
       const result = await callApi('GET', `/get-company?page=${page}`)
@@ -68,6 +86,7 @@ function HomePage() {
             />
             {dataCompany && (
               <Table
+                onDelete={handleDeleteCompany}
                 headers={['CompanyCode', 'CompanyName', 'RepresentativeName']}
                 data={dataCompany}
                 style={{
@@ -87,7 +106,7 @@ function HomePage() {
                   cursor: 'pointer',
                 }}
                 cellStyle={{
-                  textAlign: 'left',
+                  textAlign: 'center',
                   backgroundColor: 'white',
                   padding: '8px',
                   cursor: 'pointer',

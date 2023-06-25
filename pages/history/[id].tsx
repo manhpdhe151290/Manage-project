@@ -3,18 +3,105 @@ import { useRouter } from 'next/router'
 import React, { useState, useEffect, useCallback } from 'react'
 
 interface Data {
-  totalMoney: number
-  amountPaid: number
-  amountOwed: number
+  totalMoney: string
+  amountPaid: string
+  amountOwed: string
   month: string
   lastUpdate: string
 }
+// const dump: Data[] = [
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '07/2022',
+//     lastUpdate: '12/07/2022 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '08/2022',
+//     lastUpdate: '12/08/2022 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '09/2022',
+//     lastUpdate: '12/09/2022 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '10/2022',
+//     lastUpdate: '12/10/2022 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '11/2022',
+//     lastUpdate: '12/11/2022 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '12/2022',
+//     lastUpdate: '12/12/2022 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '01/2023',
+//     lastUpdate: '12/01/2023 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '02/2023',
+//     lastUpdate: '12/02/2023 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '03/2023',
+//     lastUpdate: '12/03/2023 20:47',
+//   },
+//   {
+//     totalMoney: '2',
+//     amountPaid: '2',
+//     amountOwed: '2',
+//     month: '04/2023',
+//     lastUpdate: '12/04/2023 20:47',
+//   },
+// ]
+// const targetLength = 12 // Số lượng object mục tiêu
+// const currentLength = dump.length // Số lượng object hiện tại
+
+// if (currentLength < targetLength) {
+//   const diff = targetLength - currentLength // Số lượng object cần thêm
+//   for (let i = 0; i < diff; i++) {
+//     dump.push({
+//       totalMoney: 'Không có dữ liệu',
+//       amountPaid: 'Không có dữ liệu',
+//       amountOwed: 'Không có dữ liệu',
+//       month: 'Không có dữ liệu',
+//       lastUpdate: 'Không có dữ liệu',
+//     })
+//   }
+// }
+// console.log(dump)
 
 function History() {
   const router = useRouter()
   const id = router?.query?.id?.toString()
   const [dataHistory, setDataHistory] = useState<Data[]>()
-  console.log(id)
   const handleCreateCompanySuccess = useCallback(async () => {
     if (!!id) {
       try {
@@ -22,7 +109,22 @@ function History() {
           'GET',
           `/get-debt-history?companyCode=${id}`
         )
-        setDataHistory(result)
+        const targetLength = 12 // Số lượng object mục tiêu
+        const currentLength = result.length // Số lượng object hiện tại
+
+        if (currentLength < targetLength) {
+          const diff = targetLength - currentLength // Số lượng object cần thêm
+          for (let i = 0; i < diff; i++) {
+            result.push({
+              totalMoney: 'Không có dữ liệu',
+              amountPaid: 'Không có dữ liệu',
+              amountOwed: 'Không có dữ liệu',
+              month: 'Không có dữ liệu',
+              lastUpdate: 'Không có dữ liệu',
+            })
+          }
+          setDataHistory(result)
+        }
       } catch (error) {
         console.error(error)
       }
