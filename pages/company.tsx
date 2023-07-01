@@ -30,7 +30,7 @@ function HomePage() {
     if (confirmed) {
       try {
         await callApi('DELETE', `/delete-company?companyCode=${companyCode}`)
-        toast('Delete company successfully!', {
+        toast('Xóa công ty thành công!', {
           hideProgressBar: true,
           autoClose: 2000,
           type: 'success',

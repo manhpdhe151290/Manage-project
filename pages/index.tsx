@@ -1,11 +1,9 @@
-import Table from '@/modules/History/history'
-import Login from '@/modules/LoginForm/Login'
-import React from 'react'
+import HomePage from './company'
 
 function LoginPage() {
   return (
     <div>
-      <Login />
+      <HomePage />
     </div>
   )
 }
