@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 const apiInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}`,
-  timeout: 1000,
+  timeout: 5000,
 })
 
 export const callApi = async (
